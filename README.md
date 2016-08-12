@@ -1,2 +1,8 @@
 # sass-susy
-aa
+--bower
+break-point
+detectizr
+jquery
+modernizr
+susy
+font-awesome
