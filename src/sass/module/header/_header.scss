@@ -1,0 +1,329 @@
+$query:"only screen";
+
+@include breakpoint($query max-width 719px){
+@include layout(2 1/14);
+  body{
+  @include container(100%);
+}
+header{
+  width:100%;
+  background-color:#0046ff;
+  position:fixed;
+  height: 50px;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  font-size: rem(16px);
+  @include transition(all 250ms ease-in-out);
+  .header_wrap{
+    padding: 0 4%;
+    height: 100%;
+    &:after{
+      display: block;
+      clear: both;
+      content:'';
+      overflow: hidden;
+    }
+    .logo{
+      display: inline-block;
+      position:absolute;
+      top: 50%;
+      margin-top: -16px;
+      left: 4%;
+      a{
+        color:#fff;
+        display: block;
+        width: 115px;
+        text-indent: -999em;
+        overflow: hidden;
+        background:url('../images/broccoli.png')no-repeat center center;
+        background-size: 115px auto;
+      }
+    }
+    .burger-input {
+      top: 0;
+      right: 0;
+      opacity: 0;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      position: absolute;
+
+      &+label{
+        width: 30px;
+        display: block;
+        float: right;
+        padding: 12px 0;
+        cursor: pointer;
+        position: relative;
+      }
+      &+label:after,&+label:before,&+label .burger{
+        content:'';
+        width: 25px;
+        height: 4px;
+        display: block;
+        margin: 3px auto;
+        border-radius: 3px;
+        background-color: #fff;
+        // transition: all 200ms ease-in-out;
+        @include transition( all 200ms ease-in-out);
+      }
+      &:checked + label{
+        top: 6px;
+      }
+      &:checked + label:before{
+        @include transform(translateY(2px) rotate(135deg));
+      }
+      &:checked + label:after{
+        @include transform(translateY(-12px) rotate(-135deg));
+      }
+      &:checked + label .burger{
+        @include transform(scale(0));
+      }
+      &:checked ~ nav{
+        display: block;
+        margin-bottom: 30px;
+        @include transition(all 250ms ease-in-out);
+        & li{
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+    nav{
+      display: none;
+      position:absolute;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      ul{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        text-align: center;
+        a{
+          display: block;
+          padding: 10px 0;
+          color: #fff;
+          background-color: rgba(#000, 0.5);
+          @include transition(background-color 250ms ease);
+        }
+      }
+    }
+  }
+}
+}
+
+
+@include breakpoint($query 720px 1024px){
+@include layout(3 1/24);
+header{
+  width:100%;
+  background-color:#ff003e;
+  position:fixed;
+  height: 50px;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  font-size: rem(16px);
+  @include transition(all 250ms ease);
+  .header_wrap{
+    padding: 0 4%;
+    height: 100%;
+    &:after{
+      display: block;
+      clear: both;
+      content:'';
+      overflow: hidden;
+    }
+    .logo{
+      display: inline-block;
+      position:absolute;
+      top: 50%;
+      margin-top: -16px;
+      left: 4%;
+      a{
+        color:#fff;
+        display: block;
+        width: 115px;
+        text-indent: -999em;
+        overflow: hidden;
+        background:url('../images/broccoli.png')no-repeat center center;
+        background-size: 115px auto;
+      }
+    }
+    .burger-input {
+      display: none;
+      &+label{
+       display: none;
+      }
+      &+label:after,&+label:before,&+label .burger{
+        content:'';
+        width: 25px;
+        height: 4px;
+        display: block;
+        margin: 3px auto;
+        border-radius: 3px;
+        background-color: #fff;
+        // transition: all 200ms ease-in-out;
+        @include transition( all 200ms ease-in-out);
+      }
+      &:checked + label{
+        top: 6px;
+      }
+      &:checked + label:before{
+        @include transform(translateY(2px) rotate(135deg));
+      }
+      &:checked + label:after{
+        @include transform(translateY(-12px) rotate(-135deg));
+      }
+      &:checked + label .burger{
+        @include transform(scale(0));
+      }
+      &:checked ~ nav{
+        display: block;
+        margin-bottom: 30px;
+        @include transition(all 250ms ease-in-out);
+        & li{
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+    nav{
+      display: block;
+      position:relative;
+      @include span(1 last);
+      ul{
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        overflow: hidden;
+        @include layout(4 1/4);
+        li{
+          float:left;
+          @include span(1);
+          &:last-child{
+            @include span(1 last);
+          }
+          a{
+          display: inline-block;
+          color: #fff;
+          line-height: 50px;
+          @include transition(background-color 250ms ease-in-out);
+        }
+        }
+
+      }
+    }
+  }
+}
+
+}
+
+
+@include breakpoint($query 1025px){
+@include layout(6 1/12);
+header{
+  width:100%;
+  background-color:#00a4ff;
+  position:fixed;
+  height: 50px;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  font-size: rem(16px);
+  @include transition(all 250ms ease);
+  .header_wrap{
+    padding: 0 4%;
+    height: 100%;
+    &:after{
+      display: block;
+      clear: both;
+      content:'';
+      overflow: hidden;
+    }
+    .logo{
+      display: inline-block;
+      position:absolute;
+      top: 50%;
+      margin-top: -16px;
+      left: 4%;
+      a{
+        color:#fff;
+        display: block;
+        width: 115px;
+        text-indent: -999em;
+        overflow: hidden;
+        background:url('../images/broccoli.png')no-repeat center center;
+        background-size: 115px auto;
+      }
+    }
+    .burger-input {
+      display: none;
+      &+label{
+       display: none;
+      }
+      &+label:after,&+label:before,&+label .burger{
+        content:'';
+        width: 25px;
+        height: 4px;
+        display: block;
+        margin: 3px auto;
+        border-radius: 3px;
+        background-color: #fff;
+        // transition: all 200ms ease-in-out;
+        @include transition( all 200ms ease-in-out);
+      }
+      &:checked + label{
+        top: 6px;
+      }
+      &:checked + label:before{
+        @include transform(translateY(2px) rotate(135deg));
+      }
+      &:checked + label:after{
+        @include transform(translateY(-12px) rotate(-135deg));
+      }
+      &:checked + label .burger{
+        @include transform(scale(0));
+      }
+      &:checked ~ nav{
+        display: block;
+        margin-bottom: 30px;
+        @include transition(all 250ms ease-in-out);
+        & li{
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+    nav{
+      display: block;
+      position:relative;
+      @include span(2 last);
+      ul{
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        overflow: hidden;
+        @include layout(4 1/12);
+        li{
+          float:left;
+          @include span(1);
+          &:last-child{
+            @include span(1 last);
+          }
+          a{
+          display: inline-block;
+          color: #fff;
+          line-height: 50px;
+          @include transition(background-color 250ms ease-in-out);
+        }
+        }
+
+      }
+    }
+  }
+}
+
+}

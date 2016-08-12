@@ -1,0 +1,76 @@
+@charset 'utf-8';
+@import "bourbon/bourbon";
+@import "susy/susy";
+@import "compass/css3";
+@import "breakpoint/breakpoint";
+@import "module/header/header.scss";
+@import "module/body/exchange-page.scss";
+@import "module/breakpoint/breakpoint.scss";
+
+$susy:(
+		gutter-position:inside
+	);
+$query:"only screen";
+
+#container{
+	padding-top: 50px;
+	background-color: #ff0;
+}
+@include breakpoint($query max-width 719px){
+@include layout(2 1/14);
+  body{
+  @include container(100%);
+}
+.main{
+	@include span(2 last);
+	padding: 0;
+	background:url('../images/main_img.png')no-repeat center top;
+	height: 600px;
+	background-size: cover;
+	display: table;
+	.main_wrap{
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.main_intro{
+		@include container(200px);
+		border:5px solid #fff;
+		height: 200px;
+	}
+	.main_dec{
+		@include span(2 last);
+		text-align: center;
+		margin-top: rem(50px);
+	}
+}
+	.content{
+		@include span(2 last);
+		padding: 0;
+	}
+}
+
+@include breakpoint($query 1025px){
+@include layout(2 1/24);
+	.content{
+		@include span(2 last);
+		padding: 0;
+		.right,.left{
+			height: 100px;
+			background-color:red
+		}
+		.right{
+			@include span(1);
+		}
+		.left{
+			@include span(1 last);
+			.text_wrap{
+				@include layout(4 1/4);
+				@include span(2);
+				height: 100%;
+				margin: 0 auto;
+				float: none;
+				background-color: #FF0
+			}
+		}
+	}
+}
