@@ -9,6 +9,7 @@ var gulp = require('gulp'),
 		rename	=	require('gulp-rename'),
 		opt	=	require('gulp-imagemin'),
 		preen	=	require('preen'),
+		svg = require('gulp-svg2png'),
 		config = require('./config')();
 
 gulp.task('default',['compass','img','connect','html','watch']);
@@ -48,6 +49,7 @@ gulp.task('compass', function(){
 	.pipe(	gulp.dest(config.sass.dest)	)
 	.pipe(	connect.reload()	);
 });
+
 //liveload
 gulp.task('connect', function() {
   connect.server({
@@ -85,4 +87,11 @@ gulp.task('bower:copy',function(){
 		.pipe(	gulp.dest('src/sass/fontawesome')	)
 		gulp.src('bower_components/breakpoint-sass/stylesheets/**')
 		.pipe(	gulp.dest('src/sass/breakpoint')	);
-})
+});
+
+
+gulp.task('svg', function () {
+    gulp.src(config.svg.src)
+        .pipe(svg())
+        .pipe(gulp.dest(config.svg.dest));
+});
