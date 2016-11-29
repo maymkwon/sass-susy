@@ -3,20 +3,36 @@
 @import "susy/susy";
 @import "compass/css3";
 @import "breakpoint/breakpoint";
-@import "module/header/header.scss";
-@import "module/body/body.scss";
-@import "module/breakpoint/breakpoint.scss";
 $query:"only screen";
 $susy:(
 		columns:12,
 		gutters:1/4,
-		gutter-position:inside,
+		gutter-position:outside,
 		math:fluid,
 		output:float,
 	);
 
 header{
-
+	.logo{
+		background: transparent url("../images/nomad_logo.png") no-repeat  center;
+		background-size:100% auto;
+		width: 173px;
+		height: 70px;
+		text-indent: -3333px;
+		border: 0;
+		margin: 0 auto;
+		a{
+			display: block;
+		    text-decoration: none;
+		    border: 0;
+            line-height: 70px;
+		}
+	}
+	p{
+		display: block;
+		font-size:20px;
+		color:#fff;
+	}
 }
 .container{
 	@include container(90%);
@@ -24,21 +40,76 @@ header{
 	background-color: #333;
 
 
+
 	@include breakpoint($query 370px){
 		@include container(80%);
-
 	}
 }
+section{
+	padding: 30px 0px;
+}
+
+
+@mixin card($color){
+	.card-preview{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		h2{
+			color:$color;
+			font-size:47px;
+
+		}
+		p{
+			font-size:16px;
+		}
+		.btn_box{
+			background-color: $color;
+			a{
+				color: #fff;
+			}
+		}
+	}
+}
+
+
 .card{
 	text-align: center;
+	margin-bottom: 25px;
+	padding: 30px;
+	background-color: #fff;
+	&.card-c{
+		@include card(#00a6fc);
+	}
+	&.card-f{
+		@include card(#9d46ff);
+	}
+	&.card-s{
+		@include card(#ffa100);
+	}
+	&.card-v{
+		@include card(#ff5a6a);
+	}
 
 
 
-	@include breakpoint($query 370px){
+
+	.card-preview{
+		img{
+			max-width: 33%;
+		}
+	}
+
+}
+
+
+@include breakpoint($query 370px){
+	.card{
 		@include span(6);
 	}
-	@include breakpoint($query 1280px){
+}
+@include breakpoint($query 1280px){
+	.card{
 		@include span(3);
 	}
-
 }
