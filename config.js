@@ -11,11 +11,16 @@ var sass = {
 	svg = {
 		src : 'src/images/svg/**/*.svg',
 		dest : 'dist/images/svg2png'
+	},
+	js = {
+		src:'src/js/*.js',
+		dest:'dist/js'
 	}
 	return{
 		sass : sass,
 		img : img,
-		svg : svg
+		svg : svg,
+		js : js
 	};
 
 };

@@ -2,6 +2,7 @@ var gulp = require('gulp'),
 		concat = require('gulp-concat'),
 		connect = require('gulp-connect'),
 		uglifycss = require('gulp-uglifycss'),
+		uglify = require('gulp-uglify'),
 		sass	=	require('gulp-sass'),
 		plumber	=	require('gulp-plumber'),
 		compass	=	require('gulp-compass'),
@@ -12,11 +13,14 @@ var gulp = require('gulp'),
 		svg = require('gulp-svg2png'),
 		config = require('./config')();
 
-gulp.task('default',['compass','img','connect','html','watch']);
+gulp.task('default',['compass','img','script','connect','html','watch']);
 
 gulp.task('watch',[],function(){
 	watch(config.sass.src, function(){
 		gulp.start('compass');
+	});
+	watch(config.js.src, function(){
+		gulp.start('script');
 	});
 	watch(config.img.src, function(){
 		gulp.start('img');
@@ -50,6 +54,17 @@ gulp.task('compass', function(){
 	.pipe(	connect.reload()	);
 });
 
+// /////////////////////////////////
+//  Script 업무//////////////////////
+// /////////////////////////////////
+gulp.task('script', function(){
+    gulp.src(config.js.src)
+    .pipe(gulp.dest(config.js.dest))
+    .pipe(rename({suffix:'.min'}))
+    .pipe(uglify())
+    .pipe(gulp.dest(config.js.dest))
+	.pipe(	connect.reload()	);
+});
 //liveload
 gulp.task('connect', function() {
   connect.server({

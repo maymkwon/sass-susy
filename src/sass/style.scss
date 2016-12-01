@@ -3,20 +3,88 @@
 @import "susy/susy";
 @import "compass/css3";
 @import "breakpoint/breakpoint";
+@import "slider";
 $query:"only screen";
 $susy:(
 		columns:12,
 		gutters:1/4,
-		gutter-position:outside,
+		gutter-position:split,
 		math:fluid,
 		output:float,
+		global-box-sizing: border-box
 	);
+body{
+	min-height:100%;
+  height:100%;
+	font-family: 'Noto Sans' ,'Apple SD Gothic Neo','helvetica neue', helvetica, arial, sans-serif;
+	&.modal-active {
+    overflow: hidden;
+  }
+}
+@font-face {
+font-family: "Noto Sans";
+font-style: normal;
+font-weight: bold;
+src:
+     url("../font/NotoSansBold.woff2") format("woff2"),
+     url("../font/NotoSansBold.woff") format("woff"),
+     url("../font/NotoSansBold.ttf") format("truetype"),
+}
+@font-face {
+font-family: "Noto Sans";
+font-style: normal;
+font-weight: 300;
+src:
+     url("../font/NotoSansLight.woff2") format("woff2"),
+     url("../font/NotoSansLight.woff") format("woff"),
+     url("../font/NotoSansLight.ttf") format("truetype"),
+}
+@font-face {
+font-family: "Noto Sans";
+font-style: normal;
+font-weight: 400;
+src:
+     url("../font/NotoSansRegular.woff2") format("woff2"),
+     url("../font/NotoSansRegular.woff") format("woff"),
+     url("../font/NotoSansRegular.ttf") format("truetype"),
+}
+@font-face {
+font-family: "Noto Sans";
+font-style: normal;
+font-weight: 100;
+src:
+     url("../font/NotoSansThin.woff2") format("woff2"),
+     url("../font/NotoSansThin.woff") format("woff"),
+     url("../font/NotoSansThin.ttf") format("truetype"),
+}
 
+
+main{
+	height: 100%;
+	background: url('../images/mobile_bg.png')no-repeat center;
+	background-attachment: fixed;
+	background-size: cover;
+	display: flex;
+	align-items: center;
+}
+.bottom_arr{
+	display: none;
+}
+
+.main_wrap{
+	@include container(100%);
+}
 header{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
 	.logo{
 		background: transparent url("../images/nomad_logo.png") no-repeat  center;
 		background-size:100% auto;
-		width: 173px;
+		width: 140px;
 		height: 70px;
 		text-indent: -3333px;
 		border: 0;
@@ -32,84 +100,631 @@ header{
 		display: block;
 		font-size:20px;
 		color:#fff;
+		line-height: 28px;
+		margin-top: 13px;
+		font-weight: 100;
+	}
+	.spacer{
+		width: 30px;
+		height: 10px;
+		margin: 15px auto 27px;
+		background: url('../images/spacer.png') no-repeat center;
+		background-size: 30px auto;
 	}
 }
 .container{
-	@include container(90%);
+	@include container(80%);
 	text-align: center;
-	background-color: #333;
 
+}
 
+footer{
+	.container{
+		@include container(100%);
+	}
+	p{
+		line-height: 23px;
+		font-weight: 300;
+	}
+	padding: 40px 0 0;
+	.f_tit{
+		display: none;
+		font-size: 36px;
+		margin-bottom: 30px;
+	}
 
-	@include breakpoint($query 370px){
-		@include container(80%);
+	.contact{
+		// display: flex;
+		// align-content: stretch;
+		// align-items: center;
+		// justify-content: center;
+		// text-align: left;
+		margin-bottom: 30px;
+		&:after{
+			clear: both;
+			display: block;
+			overflow: hidden;
+			content: '';
+		}
+		h2{
+			margin-bottom: 55px;
+			padding: 30px;
+			position: relative;
+			font-weight: 400;
+			font-size: 26px;
+			line-height: 34px;
+			&:after{
+				content: '';
+				position: absolute;
+				bottom: -32px;
+				left:50%;
+				margin-left: -10px;
+				width: 20px;
+				height: 10px;
+				display: inline-block;
+				background: url('../images/footer-spacer.png') no-repeat;
+				background-size: 100% auto;
+			}
+		}
+		.address + .number{
+			margin-top: 55px;
+		}
+		.number{
+			p:last-child{
+				font-size: 18px;
+				font-weight: 400;
+				margin-top: 15px;
+				span{
+					color:red;
+				}
+			}
+		}
 	}
 }
-section{
-	padding: 30px 0px;
-}
-
 
 @mixin card($color){
 	.card-preview{
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		h2{
+		.preview_tit{
 			color:$color;
-			font-size:47px;
+			font-size:40px;
+			text-indent: -333333333px;
+			margin: 35px 0 15px;
 
 		}
 		p{
-			font-size:16px;
+			font-size:14px;
+			font-weight: 300;
 		}
 		.btn_box{
-			background-color: $color;
-			a{
+			width: 100%;
+			margin-top: 70px;
+			padding:0 20px;
+			button{
+				background-color: $color;
+				display: inline-block;
+				width: 100%;
+				height: 50px;
+				font-size: 13px;
+				font-weight: bold;
+				color:rgba(255,255,255,.9);
+				border-radius: 3px;
+				line-height: 50px;
 				color: #fff;
 			}
 		}
 	}
 }
+.card{
+	&.open{
+		#modal-container{
+			transform:scale(1);
+			.modal-background {
+		      background:rgba(0,0,0,.0);
+		      animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+			  .modal {
+		        background-color:transparent;
+		        animation: modalFadeIn .5s .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+		        .modal-content {
+		          opacity:0;
+		          position:relative;
+		          animation: modalContentFadeIn .5s 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+					h2{
+						color: #fff;
+					}
+				}
+		      }
+		    }
+		}
+	}
+	&.out{
+		#modal-container{
+			animation: quickScaleDown 0s .5s linear forwards;
+			.modal-background {
+	          animation: fadeOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+	  		.modal {
+	            animation: modalFadeOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+	            .modal-content {
+	              animation: modalContentFadeOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+	            }
+	          }
+	        }
+		}
+    }
+}
+#modal-container{
+	position:fixed;
+  	display:block;
+ 	height:100%;
+  	width:100%;
+ 	top:0;
+	left:0;
+	overflow-y: auto;
+  	transform:scale(0);
+  	z-index:1;
+}
+.modal-background {
+    display:block;
+    background:rgba(0,0,0,.8);
+    text-align:center;
+    vertical-align:middle;
+    .modal {
+      background:white;
+      display:block;
+	  height: 100%;
+	  width: 100%;
+	  overflow-y: auto;
+      border-radius:3px;
+      font-weight:300;
+      position:relative;
+	  .modal-content{
+		  padding: 30px 0;
+		  display: block;
+		  vertical-align: middle;
+		  & > .container{
+			  @include container(90%);
+		  }
+	  }
+	  .modal-tit{
+		  font-size: 40px;
+		  text-indent: -33333px;
+		  margin-bottom: 20px;
+		  width: 154px;
+		  height: 58px;
+		  margin-left: 6px;
+		  text-align: left;
+	  }
+
+    }
+	.modal-content-wrap{
+		&.container{
+			@include container(90%);
+		}
+		.modal-text{
+				background-color: #fff;
+				padding: 50px 31px;
+				text-align: left;
+				&:first-child{
+					background-color: #f3f3f3;
+				}
+			p + p{
+				margin-top: 22px;
+			}
+			&:last-child{
+				// padding: 71px 65px;
+				h4{
+					font-size: 20px;
+					margin-bottom: 35px;
+				}
+				p{
+					font-size: 15px;
+					letter-spacing: -0.025em;
+					line-height: 22px;
+				}
+			}
+
+		}
+	}
+
+	.inner-bottom{
+		margin-top: 50px;
+
+		li + li{
+			margin-top: 7px;
+		}
+		h4{
+			font-size: 25px;
+			line-height: 33px;
+		}
+		p{
+			font-size: 13px;
+			letter-spacing: -0.025em;
+			line-height: 20px;
+		}
+		.hr{
+            width: 10px;
+            height: 2px;
+            background-color: #766e6e;
+            margin: 20px 0;
+        }
+	}
+  }
+
 
 
 .card{
 	text-align: center;
 	margin-bottom: 25px;
-	padding: 30px;
-	background-color: #fff;
+	background-color: #f5f5f5;
+	border-radius: 3px;
 	&.card-c{
-		@include card(#00a6fc);
+		@include card(#009ef1);
+		.preview_tit{
+			background: url('../images/Ready-C.png') no-repeat;
+			background-size: 100% auto;
+		}
+		.modal-content{
+			background-color: #00a6fc;
+			.modal-tit{
+				background: url('../images/modal-tit-c.png') no-repeat;
+				background-size: 100% auto;
+			}
+		}
 	}
 	&.card-f{
-		@include card(#9d46ff);
+		@include card(#8436f1);
+		.preview_tit{
+			background: url('../images/Ready-F.png') no-repeat;
+			background-size: 100% auto;
+		}
+		.modal-content{
+			background-color: #8436f1;
+			.modal-tit{
+				background: url('../images/modal-tit-f.png') no-repeat;
+				background-size: 100% auto;
+			}
+		}
 	}
 	&.card-s{
-		@include card(#ffa100);
+		@include card(#fd882d);
+		.preview_tit{
+			background: url('../images/ready-s.png') no-repeat;
+			background-size: 100% auto;
+		}
+		.modal-content{
+			background-color: #fd882d;
+			.modal-tit{
+				background: url('../images/modal-tit-s.png') no-repeat;
+				background-size: 100% auto;
+			}
+		}
 	}
 	&.card-v{
-		@include card(#ff5a6a);
+		@include card(#ff694c);
+		.preview_tit{
+			background: url('../images/Ready-V.png') no-repeat;
+			background-size: 100% auto;
+		}
+		.modal-content{
+			background-color: #ff694c;
+			.modal-tit{
+				background: url('../images/modal-tit-v.png') no-repeat;
+				background-size: 100% auto;
+			}
+		}
 	}
 
-
-
-
 	.card-preview{
+		display: flex;
+		flex-direction: column;
+		padding: 40px 0 20px;
 		img{
 			max-width: 33%;
 		}
 	}
 
 }
+.modal-close{
+	position: absolute;;
+   z-index: 1;
+   top: 25px;
+   right: 5%;
+   height: 40px;
+   width: 40px;
+   border-radius: 50%;
+   background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-close_copy.svg) no-repeat center center;
+	background-size: 40px;
+}
 
+////////////////////////////////////////////////
+//////////////////breakpoint/////////////////
+////////////////////////////////////////////////
+@include breakpoint($query 640px){
+	header{
+		margin-bottom: 0;
+	}
+	main{
+		background: url('../images/main_bg.png')no-repeat center;
+		background-attachment: fixed;
+		background-size: cover;
+		position: relative;
+	}
+	.bottom_arr{
+		@include container(100%);
+		display: block;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 40px;
+		opacity: 0.8;
+		text-align: center;
+		background:#252424 url('../images/line.png') no-repeat center;
+		background-size: 100% auto;
+		.go,.up{
+			display: inline-block;
+			cursor: pointer;
+			width: 50px;
+			height: 50px;
+			margin: 0 auto;
+				@-webkit-keyframes circleBounce {
+				  0% {-webkit-transform: scale(0.9); opacity: 0;}
+				  20% {opacity: 0.5;}
+				  50% {opacity: 1;}
+				  80% {opacity: 0.5;}
+				  100% {-webkit-transform: scale(1.1); opacity:0;}
+				}
 
-@include breakpoint($query 370px){
+				div {
+				  position: relative;
+				  width: 25px;
+				  height: 25px;
+				  margin: 0 auto;
+				  cursor:pointer;
+				  transform: rotate(180deg);
+				  transition: all 0.3s;
+				  background:url('../images/arrow-up.png') no-repeat;
+				  background-size: 25px auto;
+				//   -webkit-transform: rotate(45deg);
+				  -webkit-transform-origin: 50% 50%;
+				}
+
+				div:after {
+				  content: "";
+				  display: block;
+				  position: absolute;
+				  margin-left: -14px;
+				  margin-top: -14px;
+				  width: 50px;
+				  height: 50px;
+				  border: 1px solid rgba(255,255,255,.8);
+				  border: 1px solid #fff;
+				  border-radius: 50%;
+
+				  -webkit-animation: circleBounce 1.2s linear infinite;
+				}
+
+				div:hover:after {
+				  background-color: rgba(255,255,255,.15);
+				}
+		}
+		.up{
+			div{
+				transform: rotate(0);
+			}
+		}
+	}
+	section{
+		padding: 80px 0px;
+
+	}
 	.card{
-		@include span(6);
+		@include gallery(6 of 12);
+	}
+
+}
+@include breakpoint($query 980px){
+	header{
+		margin-top: 0;
+	}
+	section{
+		.container{
+
+			text-align: center;
+			padding: 0 27px;
+		}
+	}
+	.main_wrap{
+		margin-top: -70px;
+	}
+	main{
+		height: 100vh;
+	}
+	.bottom_arr{
+		margin-top: -130px;
+	}
+	.card{
+		@include gallery(3 of 12);
+		margin-bottom: 0;
+	}
+	footer{
+		height: calc(100vh - 130px);
+		padding: 0;
+		display: flex;
+		align-items: center;
+		.contact{
+			margin-bottom: 0;
+			h2{
+				padding: 0;
+			}
+		}
+		.f_tit{
+			font-size: 83px;
+			margin-bottom: 50px;
+			display: block;
+			text-indent: -999em;
+			background: url('../images/address-email.png')no-repeat;
+			background-size: 100% auto;
+			display: block;
+			font-weight: bold;
+			span{
+				color: red;
+			}
+		}
+		.contact_wrap{
+			display: flex;
+			align-content:stretch;
+			align-items: center;
+
+
+		}
+		.contact{
+			@include span(6);
+			text-align: left;
+			padding-right: 110px;
+		}
+		.working_hard{
+			@include span(6 last);
+			padding: 30px;
+			padding-right: 0;
+		}
+	}
+	#modal-container{
+		display: table;
+	}
+	.modal-background {
+		display: table-cell;
+		.inner-bottom{
+			padding: 0 37px;
+		}
+		.inner-top{
+			padding: 0 30px;
+		}
+		.modal{
+			display: table;
+			max-width: 1120px;
+			margin: 0 auto;
+			height: auto;
+
+			.modal-content{
+				display: table-cell;
+				padding: 50px 0;
+				border-radius: 4px;
+				.modal-tit{
+					font-size: 60px;
+					margin-bottom: 35px;
+					margin-top: 28px;
+				}
+
+				.modal-content-wrap{
+					.modal-text{
+						@include span(6 inside no-gutters);
+						margin: 0;
+						text-align: left;
+						border-radius: 4px 0 0 4px;
+						&:last-child{
+							padding: 71px 65px;
+							border-radius: 0 4px 4px 0;
+					}
+				}
+			}
+			}
+		}
+	}
+
+	.modal-content{
+		.container{
+			@include container(90%);
+			padding: 0;
+			display: flex;
+			align-items: stretch;
+		}
+	}
+	.modal-close{
+		top: 78px;
+	    right: 5%;
+		background: rgba(#fff, .3) url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-close_copy.svg) no-repeat center center;
+		background-size: 28px;
+	}
+	footer .contact h2:after{
+		left:0;
+		margin-left: 0;
+	}
+	.number{
+		p:last-child{
+			display: none;
+		}
 	}
 }
-@include breakpoint($query 1280px){
-	.card{
-		@include span(3);
-	}
+
+@keyframes fadeIn {
+  0% {
+    background:rgba(0,0,0,.0);
+  }
+  100% {
+    background:rgba(0,0,0,.7);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    background:rgba(0,0,0,.7);
+  }
+  100% {
+    background:rgba(0,0,0,.0);
+  }
+}
+
+@keyframes quickScaleDown {
+  0% {
+    transform:scale(1);
+  }
+  99.9% {
+    transform:scale(1);
+  }
+  100% {
+    transform:scale(0);
+  }
+}
+@keyframes modalFadeIn {
+  0% {
+    background-color:transparent;
+  }
+  100% {
+    background-color:white;
+  }
+}
+
+@keyframes modalFadeOut {
+  0% {
+    background-color:white;
+  }
+  100% {
+    background-color:transparent;
+  }
+}
+
+@keyframes modalContentFadeIn {
+  0% {
+    opacity:0;
+    top:-20px;
+  }
+  100% {
+    opacity:1;
+    top:0;
+  }
+}
+
+@keyframes modalContentFadeOut {
+  0% {
+    opacity:1;
+    top:0px;
+  }
+  100% {
+    opacity:0;
+    top:-20px;
+  }
 }
