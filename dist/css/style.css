@@ -55,6 +55,55 @@
   transition: all 0.3s cubic-bezier(1, 0.01, 0.32, 1);
 }
 
+.btns {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  top: 50%;
+  margin-top: -25px;
+  line-height: 57px;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -ms-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+
+.btns:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+#next {
+  right: -50px;
+  border-radius: 7px 0px 0px 7px;
+}
+
+#previous {
+  left: -50px;
+  border-radius: 0px 7px 7px 7px;
+}
+
+#counter {
+  top: 30px;
+  right: 35px;
+  width: auto;
+  position: absolute;
+}
+
+#slider-wrap.active #next {
+  right: 0px;
+}
+
+#slider-wrap.active #previous {
+  left: 0px;
+}
+
 body {
   min-height: 100%;
   height: 100%;
@@ -62,6 +111,7 @@ body {
 }
 body.modal-active {
   overflow: hidden;
+  z-index: -9999;
 }
 
 @font-face {
@@ -110,6 +160,15 @@ main {
   content: " ";
   display: block;
   clear: both;
+}
+
+.desktop_txt {
+  display: none;
+  visibility: hidden;
+}
+
+.mobile_txt {
+  display: block;
 }
 
 header {
@@ -163,38 +222,38 @@ header .spacer {
   clear: both;
 }
 
-footer {
+.contact-area {
   padding: 40px 0 0;
 }
-footer .container {
+.contact-area .container {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
-footer .container:after {
+.contact-area .container:after {
   content: " ";
   display: block;
   clear: both;
 }
-footer p {
+.contact-area p {
   line-height: 23px;
   font-weight: 300;
 }
-footer .f_tit {
+.contact-area .f_tit {
   display: none;
   font-size: 36px;
   margin-bottom: 30px;
 }
-footer .contact {
+.contact-area .contact {
   margin-bottom: 30px;
 }
-footer .contact:after {
+.contact-area .contact:after {
   clear: both;
   display: block;
   overflow: hidden;
   content: '';
 }
-footer .contact h2 {
+.contact-area .contact h2 {
   margin-bottom: 55px;
   padding: 30px;
   position: relative;
@@ -202,7 +261,7 @@ footer .contact h2 {
   font-size: 26px;
   line-height: 34px;
 }
-footer .contact h2:after {
+.contact-area .contact h2:after {
   content: '';
   position: absolute;
   bottom: -32px;
@@ -214,16 +273,23 @@ footer .contact h2:after {
   background: url("../images/footer-spacer.png") no-repeat;
   background-size: 100% auto;
 }
-footer .contact .address + .number {
+.contact-area .contact .address + .number {
   margin-top: 55px;
 }
-footer .contact .number p:last-child {
-  font-size: 18px;
+.contact-area .contact .number .mobile_txt {
+  margin-top: 30px;
   font-weight: 400;
-  margin-top: 15px;
 }
-footer .contact .number p:last-child span {
-  color: red;
+.contact-area .contact .number .mobile_txt:before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  position: absolute;
+  margin-left: -10px;
+  top: -10px;
+  left: 50%;
 }
 
 .card.open #modal-container {
@@ -265,7 +331,8 @@ footer .contact .number p:last-child span {
   width: 100%;
   top: 0;
   left: 0;
-  overflow-y: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   transform: scale(0);
   z-index: 1;
 }
@@ -307,7 +374,7 @@ footer .contact .number p:last-child span {
   margin-bottom: 20px;
   width: 154px;
   height: 58px;
-  margin-left: 6px;
+  margin-left: 13px;
   text-align: left;
 }
 .modal-background .modal-content-wrap.container {
@@ -323,7 +390,11 @@ footer .contact .number p:last-child span {
 .modal-background .modal-content-wrap .modal-text {
   background-color: #fff;
   padding: 50px 31px;
+  text-align: justify;
+}
+.modal-background .modal-content-wrap .modal-text h4 {
   text-align: left;
+  line-height: 24px;
 }
 .modal-background .modal-content-wrap .modal-text:first-child {
   background-color: #f3f3f3;
@@ -342,6 +413,9 @@ footer .contact .number p:last-child span {
 }
 .modal-background .inner-bottom {
   margin-top: 50px;
+}
+.modal-background .inner-bottom h4 {
+  text-align: left;
 }
 .modal-background .inner-bottom li + li {
   margin-top: 7px;
@@ -549,6 +623,16 @@ footer .contact .number p:last-child span {
   max-width: 33%;
 }
 
+.copyright {
+  padding: 20px 10px;
+}
+.copyright p {
+  font-size: 11px;
+  text-indent: -0.025em;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.7);
+}
+
 .modal-close {
   position: absolute;
   z-index: 1;
@@ -561,9 +645,105 @@ footer .contact .number p:last-child span {
   background-size: 40px;
 }
 
+.email:before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  position: absolute;
+  margin-left: -10px;
+  top: -10px;
+  left: 50%;
+}
+.email p {
+  font-size: 15px;
+  font-weight: 400;
+}
+.email p + p {
+  margin-top: 0px;
+}
+
+.cooperation {
+  margin: 80px 0;
+}
+.cooperation.partner {
+  margin: 0;
+  padding: 80px 0;
+}
+
+.partner {
+  background-color: #edeef0;
+}
+
+.cooper_coustomer, .cooper_partner {
+  margin: 0 auto;
+  width: 150px;
+  height: 60px;
+  text-indent: -999em;
+}
+
+.cooper_partner {
+  background: url("../images/logos/Partners.png") no-repeat;
+  background-size: 150px auto;
+  background-position: center;
+}
+
+.cooper_coustomer {
+  background: url("../images/logos/Customers.png") no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+}
+
+.customers {
+  margin-top: 15px;
+}
+.customers:after {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  content: '';
+}
+.customers li {
+  width: 48.33333%;
+  float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
+  height: 30px;
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.customers li img {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+  opacity: 0.7;
+  height: 100%;
+}
+.customers li span {
+  display: block;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+}
+
 @media only screen and (min-width: 640px) {
   header {
     margin-bottom: 0;
+  }
+
+  .desktop_txt {
+    visibility: visible;
+    display: block;
+  }
+
+  .mobile_txt {
+    display: none;
+  }
+
+  .modal-content-wrap .modal-text {
+    padding: 50px;
   }
 
   main {
@@ -584,7 +764,7 @@ footer .contact .number p:last-child span {
     padding: 40px;
     opacity: 0.8;
     text-align: center;
-    background: #252424 url("../images/line.png") no-repeat center;
+    background: #000 url("../images/line.png") no-repeat center;
     background-size: 100% auto;
   }
   .bottom_arr:after {
@@ -679,16 +859,18 @@ footer .contact .number p:last-child span {
     padding: 0 27px;
   }
 
+  .container.card_wrap {
+    min-width: 860px;
+    max-width: 980px;
+    padding: 0 25px;
+  }
+
   .main_wrap {
-    margin-top: -70px;
+    margin-top: 70px;
   }
 
   main {
-    height: 100vh;
-  }
-
-  .bottom_arr {
-    margin-top: -130px;
+    height: 100%;
   }
 
   .card {
@@ -717,20 +899,42 @@ footer .contact .number p:last-child span {
     clear: none;
   }
 
-  footer {
-    height: calc(100vh - 130px);
-    padding: 0;
+  .contact-area {
+    padding: 100px 0;
     display: flex;
     align-items: center;
+    background-color: #222121;
+    color: #cccccc;
   }
-  footer .contact {
+  .contact-area .contact {
     margin-bottom: 0;
   }
-  footer .contact h2 {
+  .contact-area .contact h2 {
     padding: 0;
   }
-  footer .f_tit {
+  .contact-area .email:before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    position: absolute;
+    margin-left: 0;
+    top: -10px;
+    left: 0;
+  }
+  .contact-area .email p {
+    font-size: 20px;
+    text-align: left;
+    font-weight: 400;
+  }
+  .contact-area .email p + p {
+    margin-top: 10px;
+  }
+  .contact-area .f_tit {
     font-size: 83px;
+    height: 103px;
+    margin-top: 30px;
     margin-bottom: 50px;
     display: block;
     text-indent: -999em;
@@ -739,23 +943,23 @@ footer .contact .number p:last-child span {
     display: block;
     font-weight: bold;
   }
-  footer .f_tit span {
+  .contact-area .f_tit span {
     color: red;
   }
-  footer .contact_wrap {
+  .contact-area .contact_wrap {
     display: flex;
     align-content: stretch;
     align-items: center;
   }
-  footer .contact {
+  .contact-area .contact {
     width: 48.33333%;
     float: left;
     margin-left: 0.83333%;
     margin-right: 0.83333%;
     text-align: left;
-    padding-right: 110px;
+    padding-right: 0;
   }
-  footer .working_hard {
+  .contact-area .working_hard {
     width: 48.33333%;
     float: right;
     margin-left: 0.83333%;
@@ -763,13 +967,15 @@ footer .contact .number p:last-child span {
     padding: 30px;
     padding-right: 0;
   }
-
-  #modal-container {
-    display: table;
+  .contact-area .working_hard img {
+    height: 368px;
+    max-width: inherit;
   }
 
   .modal-background {
-    display: table-cell;
+    height: 100%;
+    width: 100%;
+    display: table;
   }
   .modal-background .inner-bottom {
     padding: 0 37px;
@@ -778,13 +984,15 @@ footer .contact .number p:last-child span {
     padding: 0 30px;
   }
   .modal-background .modal {
-    display: table;
-    max-width: 1120px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10%;
     margin: 0 auto;
     height: auto;
   }
   .modal-background .modal .modal-content {
-    display: table-cell;
+    max-width: 1120px;
+    margin: 0 auto;
     padding: 50px 0;
     border-radius: 4px;
   }
@@ -797,12 +1005,23 @@ footer .contact .number p:last-child span {
     width: 50%;
     float: left;
     margin: 0;
-    text-align: left;
+    text-align: justify;
+    padding: 50px 31px;
     border-radius: 4px 0 0 4px;
+  }
+  .modal-background .modal .modal-content .modal-content-wrap .modal-text h4 {
+    text-align: left;
   }
   .modal-background .modal .modal-content .modal-content-wrap .modal-text:last-child {
     padding: 71px 65px;
     border-radius: 0 4px 4px 0;
+  }
+
+  .copyright {
+    padding: 40px 0;
+  }
+  .copyright p {
+    font-size: 15px;
   }
 
   .modal-content .container {
@@ -826,13 +1045,47 @@ footer .contact .number p:last-child span {
     background-size: 28px;
   }
 
-  footer .contact h2:after {
+  .contact-area .contact h2:after {
     left: 0;
     margin-left: 0;
   }
 
-  .number p:last-child {
-    display: none;
+  .number p {
+    color: #aa5454;
+    font-weight: bold;
+  }
+  .number p > span {
+    margin-left: 10px;
+    color: rgba(204, 204, 204, 0.7);
+    font-weight: 300;
+  }
+
+  .customers li {
+    width: 23.33333%;
+    float: left;
+    margin-left: 0.83333%;
+    margin-right: 0.83333%;
+    justify-content: flex-start;
+  }
+
+  .cooperation .container {
+    text-align: left;
+  }
+
+  .cooper_coustomer, .cooper_partner {
+    margin-left: 0;
+  }
+
+  .cooper_partner {
+    background: url("../images/logos/Partners.png") no-repeat;
+    background-size: 120px auto;
+    background-position: left center;
+  }
+
+  .cooper_coustomer {
+    background: url("../images/logos/Customers.png") no-repeat;
+    background-size: 100% auto;
+    background-position: left center;
   }
 }
 @keyframes fadeIn {
@@ -867,12 +1120,12 @@ footer .contact .number p:last-child span {
     background-color: transparent;
   }
   100% {
-    background-color: white;
+    background-color: transparent;
   }
 }
 @keyframes modalFadeOut {
   0% {
-    background-color: white;
+    background-color: transparent;
   }
   100% {
     background-color: transparent;

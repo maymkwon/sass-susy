@@ -19,6 +19,7 @@ body{
 	font-family: 'Noto Sans' ,'Apple SD Gothic Neo','helvetica neue', helvetica, arial, sans-serif;
 	&.modal-active {
     overflow: hidden;
+	z-index: -9999;
   }
 }
 @font-face {
@@ -74,6 +75,13 @@ main{
 .main_wrap{
 	@include container(100%);
 }
+.desktop_txt{
+	display: none;
+	visibility: hidden;
+}
+.mobile_txt{
+	display: block;
+}
 header{
 	display: flex;
 	flex-direction: column;
@@ -118,7 +126,7 @@ header{
 
 }
 
-footer{
+.contact-area{
 	.container{
 		@include container(100%);
 	}
@@ -170,14 +178,29 @@ footer{
 			margin-top: 55px;
 		}
 		.number{
-			p:last-child{
-				font-size: 18px;
+			.mobile_txt{
+				margin-top: 30px;
 				font-weight: 400;
-				margin-top: 15px;
-				span{
-					color:red;
+				&:before{
+					content: '';
+					width: 20px;
+					height: 1px;
+					background-color: rgba(#000, .7);
+					display: inline-block;
+					position: absolute;
+					margin-left: -10px;
+					top: -10px;
+					left: 50%;
 				}
 			}
+			// p:last-child{
+			// 	font-size: 18px;
+			// 	font-weight: 400;
+			// 	margin-top: 15px;
+			// 	span{
+			// 		color:red;
+			// 	}
+			// }
 		}
 	}
 }
@@ -263,7 +286,8 @@ footer{
   	width:100%;
  	top:0;
 	left:0;
-	overflow-y: auto;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
   	transform:scale(0);
   	z-index:1;
 }
@@ -295,7 +319,7 @@ footer{
 		  margin-bottom: 20px;
 		  width: 154px;
 		  height: 58px;
-		  margin-left: 6px;
+		  margin-left: 13px;
 		  text-align: left;
 	  }
 
@@ -307,7 +331,11 @@ footer{
 		.modal-text{
 				background-color: #fff;
 				padding: 50px 31px;
-				text-align: left;
+				text-align: justify;
+				h4{
+					text-align: left;
+					line-height: 24px;
+				}
 				&:first-child{
 					background-color: #f3f3f3;
 				}
@@ -332,7 +360,19 @@ footer{
 
 	.inner-bottom{
 		margin-top: 50px;
-
+		h4{
+			text-align: left;
+		}
+		// li{
+		// 	padding-left: 15px;
+		// 	&:before{
+		// 		content:'-';
+		// 		position: absolute;
+		// 		top: 0;
+		// 		left: 0;
+		// 		display: inline-block;
+		// 	}
+		// }
 		li + li{
 			margin-top: 7px;
 		}
@@ -428,6 +468,15 @@ footer{
 	}
 
 }
+.copyright{
+	padding: 20px 10px;
+	p{
+		font-size: 11px;
+		text-indent: -0.025em;
+		font-weight: 300;
+		color:rgba(#000, .7);
+	}
+}
 .modal-close{
 	position: absolute;;
    z-index: 1;
@@ -439,13 +488,104 @@ footer{
    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-close_copy.svg) no-repeat center center;
 	background-size: 40px;
 }
+.email{
+	&:before{
+		content: '';
+		width: 20px;
+		height: 1px;
+		background-color: rgba(#000, .7);
+		display: inline-block;
+		position: absolute;
+		margin-left: -10px;
+		top: -10px;
+		left: 50%;
+	}
 
+	p{
+		font-size: 15px;
+		font-weight: 400;
+		& + p{
+			margin-top: 0px;
+		}
+	}
+}
+
+.cooperation{
+	// background-color:#edeef0;
+	margin: 80px 0;
+	&.partner{
+		margin: 0;
+		padding: 80px 0;
+	}
+}
+.partner{
+	background-color:#edeef0;
+}
+.cooper_coustomer,.cooper_partner{
+	margin:0 auto;
+	width: 150px;
+	height: 60px;
+	text-indent: -999em;
+}
+.cooper_partner{
+	background: url('../images/logos/Partners.png')no-repeat;
+	background-size: 150px auto;
+	background-position: center;
+}
+.cooper_coustomer{
+	background: url('../images/logos/Customers.png')no-repeat;
+	background-size: 100% auto;
+	background-position: center;
+
+}
+.customers{
+	margin-top: 15px;
+	&:after{
+		clear: both;
+		display: block;
+		overflow: hidden;
+		content: '';
+	}
+	li{
+		@include span(6);
+		height: 30px;
+		// padding: 0 20px;
+		margin-top: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		img{
+			-webkit-filter: grayscale(1);
+			filter: grayscale(1);
+			opacity: 0.7;
+			height: 100%;
+		}
+		span{
+			display:block;
+			overflow:hidden;
+			width:0;
+			height:0;
+		}
+	}
+}
 ////////////////////////////////////////////////
 //////////////////breakpoint/////////////////
 ////////////////////////////////////////////////
 @include breakpoint($query 640px){
 	header{
 		margin-bottom: 0;
+	}
+	.desktop_txt{
+		visibility: visible;
+		display: block;
+	}
+	.mobile_txt{
+		display: none;
+	}
+	.modal-content-wrap{
+		.modal-text{
+			padding: 50px;
+		}
 	}
 	main{
 		background: url('../images/main_bg.png')no-repeat center;
@@ -462,7 +602,7 @@ footer{
 		padding: 40px;
 		opacity: 0.8;
 		text-align: center;
-		background:#252424 url('../images/line.png') no-repeat center;
+		background:#000 url('../images/line.png') no-repeat center;
 		background-size: 100% auto;
 		.go,.up{
 			display: inline-block;
@@ -519,7 +659,6 @@ footer{
 	}
 	section{
 		padding: 80px 0px;
-
 	}
 	.card{
 		@include gallery(6 of 12);
@@ -532,37 +671,71 @@ footer{
 	}
 	section{
 		.container{
-
 			text-align: center;
 			padding: 0 27px;
 		}
 	}
+	.container.card_wrap{
+		min-width: 860px;
+		max-width: 980px;
+		padding: 0 25px
+	}
 	.main_wrap{
-		margin-top: -70px;
+		margin-top: 70px;
 	}
 	main{
-		height: 100vh;
+		height: 100%;
 	}
 	.bottom_arr{
-		margin-top: -130px;
+		// margin-top: -130px;
 	}
 	.card{
 		@include gallery(3 of 12);
 		margin-bottom: 0;
 	}
-	footer{
-		height: calc(100vh - 130px);
-		padding: 0;
+	.contact-area{
+		// height: calc(100vh - 130px);
+		padding: 100px 0;
 		display: flex;
 		align-items: center;
+		background-color: #222121;
+		color:#cccccc;
+		// .container{
+		// 	@include container(80%);
+		// }
 		.contact{
 			margin-bottom: 0;
 			h2{
 				padding: 0;
 			}
 		}
+		.email{
+			&:before{
+				content: '';
+				width: 20px;
+				height: 1px;
+				background-color: rgba(#000, .5);
+				display: inline-block;
+				position: absolute;
+				margin-left: 0;
+				top: -10px;
+				left: 0;
+			}
+
+
+			p{
+				font-size: 20px;
+				text-align: left;
+				font-weight: 400;
+				& + p{
+					margin-top: 10px;
+				}
+			}
+		}
 		.f_tit{
 			font-size: 83px;
+			height: 103px;
+			margin-top: 30px;
 			margin-bottom: 50px;
 			display: block;
 			text-indent: -999em;
@@ -584,19 +757,28 @@ footer{
 		.contact{
 			@include span(6);
 			text-align: left;
-			padding-right: 110px;
+			padding-right: 0;
 		}
 		.working_hard{
 			@include span(6 last);
 			padding: 30px;
 			padding-right: 0;
+			img{
+				height: 368px;
+			    max-width: inherit;
+			}
 		}
 	}
+
 	#modal-container{
-		display: table;
+		// display: table;
 	}
 	.modal-background {
-		display: table-cell;
+		// display: table-cell;
+		height: 100%;
+		width: 100%;
+		display: table;
+		// padding: 60px 0;
 		.inner-bottom{
 			padding: 0 37px;
 		}
@@ -604,13 +786,16 @@ footer{
 			padding: 0 30px;
 		}
 		.modal{
-			display: table;
-			max-width: 1120px;
+			display: table-cell;
+			vertical-align: middle;
+			padding: 10%;
 			margin: 0 auto;
 			height: auto;
 
 			.modal-content{
-				display: table-cell;
+				// display: table-cell;
+				max-width: 1120px;
+				margin: 0 auto;
 				padding: 50px 0;
 				border-radius: 4px;
 				.modal-tit{
@@ -623,8 +808,12 @@ footer{
 					.modal-text{
 						@include span(6 inside no-gutters);
 						margin: 0;
-						text-align: left;
+						text-align: justify;
+						padding: 50px 31px;
 						border-radius: 4px 0 0 4px;
+						h4{
+							text-align: left;
+						}
 						&:last-child{
 							padding: 71px 65px;
 							border-radius: 0 4px 4px 0;
@@ -634,7 +823,12 @@ footer{
 			}
 		}
 	}
-
+	.copyright{
+		padding: 40px 0;
+		p{
+			font-size: 15px;
+		}
+	}
 	.modal-content{
 		.container{
 			@include container(90%);
@@ -649,17 +843,52 @@ footer{
 		background: rgba(#fff, .3) url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-close_copy.svg) no-repeat center center;
 		background-size: 28px;
 	}
-	footer .contact h2:after{
+	.contact-area .contact h2:after{
 		left:0;
 		margin-left: 0;
 	}
 	.number{
-		p:last-child{
-			display: none;
+		p{
+			color: #aa5454;
+			font-weight: bold;
+			& > span{
+				margin-left: 10px;
+				color:rgba(#ccc ,.7);
+				font-weight: 300;
+			}
 		}
 	}
+
+.customers{
+	li{
+		@include span(3);
+		justify-content: flex-start;
+	}
+}
+.cooperation{
+	.container{
+		text-align: left;
+	}
+}
+.cooper_coustomer,.cooper_partner{
+	margin-left: 0;
+}
+.cooper_partner{
+	background: url('../images/logos/Partners.png')no-repeat;
+	background-size: 120px auto;
+	background-position: left center;
+}
+.cooper_coustomer{
+	background: url('../images/logos/Customers.png')no-repeat;
+	background-size: 100% auto;
+	background-position: left center;
+
 }
 
+
+
+}
+/////end
 @keyframes fadeIn {
   0% {
     background:rgba(0,0,0,.0);
@@ -694,13 +923,13 @@ footer{
     background-color:transparent;
   }
   100% {
-    background-color:white;
+    background-color:transparent;
   }
 }
 
 @keyframes modalFadeOut {
   0% {
-    background-color:white;
+    background-color:transparent;
   }
   100% {
     background-color:transparent;

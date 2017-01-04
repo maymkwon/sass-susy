@@ -9,10 +9,11 @@ $("#go").on("click", function() {
 			scrollTop:0
 		},800);
 	}else{
-		var footerTop = $('#footer').offset().top;
+		var footer =$('#contact').offset();
+		var footerTop = $('#contact').offset().top;
 		$("#go").attr("class","up");
 		$("body").animate({
-			scrollTop:footerTop - 67*2
+			scrollTop:footer.top - 67*2
 		},800);
 	}
 });
