@@ -10,7 +10,7 @@
 
 body {
 	font-size: 16px;
-  	font-family: Noto Sans CJK,"Roboto-Medium";
+  	font-family: 'Noto Sans CJK',"Roboto-Medium";
 	width: 100%;
 	height: 100%;
 	overflow-y: scroll;

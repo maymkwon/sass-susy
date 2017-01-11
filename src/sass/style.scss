@@ -27,38 +27,40 @@ font-family: "Noto Sans";
 font-style: normal;
 font-weight: bold;
 src:
-     url("../font/NotoSansBold.woff2") format("woff2"),
-     url("../font/NotoSansBold.woff") format("woff"),
-     url("../font/NotoSansBold.ttf") format("truetype"),
+     url("../fonts/NotoSansBold.woff2") format("woff2"),
+     url("../fonts/NotoSansBold.woff") format("woff"),
+     url("../fonts/NotoSansBold.ttf") format("truetype"),
 }
 @font-face {
 font-family: "Noto Sans";
 font-style: normal;
 font-weight: 300;
 src:
-     url("../font/NotoSansLight.woff2") format("woff2"),
-     url("../font/NotoSansLight.woff") format("woff"),
-     url("../font/NotoSansLight.ttf") format("truetype"),
+     url("../fonts/NotoSansLight.woff2") format("woff2"),
+     url("../fonts/NotoSansLight.woff") format("woff"),
+     url("../fonts/NotoSansLight.ttf") format("truetype"),
 }
 @font-face {
 font-family: "Noto Sans";
 font-style: normal;
 font-weight: 400;
 src:
-     url("../font/NotoSansRegular.woff2") format("woff2"),
-     url("../font/NotoSansRegular.woff") format("woff"),
-     url("../font/NotoSansRegular.ttf") format("truetype"),
+     url("../fonts/NotoSansRegular.woff2") format("woff2"),
+     url("../fonts/NotoSansRegular.woff") format("woff"),
+     url("../fonts/NotoSansRegular.ttf") format("truetype"),
 }
 @font-face {
 font-family: "Noto Sans";
 font-style: normal;
 font-weight: 100;
 src:
-     url("../font/NotoSansThin.woff2") format("woff2"),
-     url("../font/NotoSansThin.woff") format("woff"),
-     url("../font/NotoSansThin.ttf") format("truetype"),
+     url("../fonts/NotoSansThin.woff2") format("woff2"),
+     url("../fonts/NotoSansThin.woff") format("woff"),
+     url("../fonts/NotoSansThin.ttf") format("truetype"),
 }
-
+.grid-container{
+	grid-template-columns: 40px 50px auto 50px 40px;
+}
 
 main{
 	height: 100%;
@@ -104,13 +106,16 @@ header{
             line-height: 70px;
 		}
 	}
+	.main-text{
+		padding-top: 20px;
+	}
 	p{
 		display: block;
-		font-size:20px;
+		font-size:15px;
 		color:#fff;
-		line-height: 28px;
-		margin-top: 13px;
-		font-weight: 100;
+		line-height: 24px;
+		margin-top: 7px;
+		font-weight: 400;
 	}
 	.spacer{
 		width: 30px;
@@ -668,6 +673,9 @@ header{
 @include breakpoint($query 980px){
 	header{
 		margin-top: 0;
+		p{
+			font-size: 18px;
+		}
 	}
 	section{
 		.container{
@@ -752,6 +760,9 @@ header{
 			align-content:stretch;
 			align-items: center;
 
+			.desktop_txt{
+				font-size: 19px;
+			}
 
 		}
 		.contact{
@@ -855,6 +866,11 @@ header{
 				margin-left: 10px;
 				color:rgba(#ccc ,.7);
 				font-weight: 300;
+			}
+		}
+		p:not(:last-child){
+			& >span{
+				margin-left: 13px;
 			}
 		}
 	}
